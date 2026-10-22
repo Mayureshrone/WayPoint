@@ -1,0 +1,17 @@
+{
+  "name": "WayPoint \u2014 Offline Indoor Navigation",
+  "short_name": "WayPoint",
+  "description": "Offline-first indoor navigation using a local floor plan and QR checkpoints.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f8fc",
+  "theme_color": "#10264a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
