@@ -47,34 +47,6 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
-
-  const url = new URL(request.url);
-  if (request.mode === "navigate" || url.pathname === "/index.html") {
-    event.respondWith(
-      fetch(request)
-        .then(async (response) => {
-          if (response.ok) {
-            try {
-              const cache = await caches.open(CACHE_NAME);
-              await cache.put("/index.html", response.clone());
-            } catch (error) {
-              console.warn("WayPoint could not cache the latest app shell:", error);
-            }
-          }
-          return response;
-        })
-        .catch(async () => {
-          const cached = await caches.match("/index.html");
-          if (cached) return cached;
-          return new Response("WayPoint is unavailable offline. Connect to the internet and reload.", {
-            status: 503,
-            headers: { "Content-Type": "text/plain; charset=utf-8" }
-          });
-        })
-    );
-    return;
-  }
-
   event.respondWith(
     caches.match(request).then((cached) => cached || fetch(request).then((response) => {
       if (response && response.ok) {
